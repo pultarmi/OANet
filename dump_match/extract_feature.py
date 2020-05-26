@@ -7,6 +7,7 @@ import cv2
 import h5py
 import torch
 from PIL import Image
+import torchvision.transforms as transforms
 
 
 def str2bool(v):
@@ -24,6 +25,11 @@ parser.add_argument('--num_kp', type=int, default='2000',
 parser.add_argument('--suffix', type=str, default='sift-2000',
                     help='suffix of filename, default:sift-2000')
 
+default_resize_transform = transforms.Compose([
+    transforms.ToPILImage(),
+    transforms.Resize(32),
+    transforms.ToTensor()
+])
 
 class ExtractSIFT(object):
     def __init__(self, num_kp, contrastThreshold=1e-5):
@@ -44,7 +50,11 @@ class ExtractSIFT(object):
             # if not (left > 0 and top > 0 and right < w - 1 and bottom < h - 1):  # no black rectangles
             #     continue
             patch = img.crop((left, top, right, bottom))
-            print(patch.size)
+            patch = torch.tensor(np.asarray(patch))
+            patch = patch.cuda()
+            patch = default_resize_transform(patch)
+            out = self.model(patch)
+            # print(patch.size)
         return kp, desc
 
 
