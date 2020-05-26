@@ -34,7 +34,14 @@ class ExtractSIFT(object):
         img = cv2.imread(img_path)
         cv_kp, desc = self.sift.detectAndCompute(img, None)
         kp = np.array([[_kp.pt[0], _kp.pt[1], _kp.size, _kp.angle] for _kp in cv_kp])  # N*4
-        print(img.shape)
+        # print(img.shape)
+
+        for k in kp:
+            D2pt = k
+            left, top, right, bottom = D2pt[0] - 32, D2pt[1] - 32, D2pt[0] + 32, D2pt[1] + 32
+            # if not (left > 0 and top > 0 and right < w - 1 and bottom < h - 1):  # no black rectangles
+            #     continue
+            patch = img.crop((left, top, right, bottom))
         return kp, desc
 
 
