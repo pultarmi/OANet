@@ -6,7 +6,7 @@ from tqdm import tqdm
 import cv2
 import h5py
 import torch
-import PIL
+from PIL import Image
 
 
 def str2bool(v):
