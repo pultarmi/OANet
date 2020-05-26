@@ -27,13 +27,14 @@ parser.add_argument('--suffix', type=str, default='sift-2000',
 class ExtractSIFT(object):
     def __init__(self, num_kp, contrastThreshold=1e-5):
         self.model = torch.jit.load('h8E512lib+colo+notrebs9000ep40PCA128lib.jitpt')
-        print('moel loaded')
+        print('model loaded')
         self.sift = cv2.xfeatures2d.SIFT_create(nfeatures=num_kp, contrastThreshold=contrastThreshold)
 
     def run(self, img_path):
         img = cv2.imread(img_path)
         cv_kp, desc = self.sift.detectAndCompute(img, None)
         kp = np.array([[_kp.pt[0], _kp.pt[1], _kp.size, _kp.angle] for _kp in cv_kp])  # N*4
+        print(img.shape)
         return kp, desc
 
 
