@@ -6,6 +6,7 @@ from tqdm import tqdm
 import cv2
 import h5py
 import torch
+import PIL
 
 
 def str2bool(v):
@@ -36,6 +37,7 @@ class ExtractSIFT(object):
         kp = np.array([[_kp.pt[0], _kp.pt[1], _kp.size, _kp.angle] for _kp in cv_kp])  # N*4
         # print(img.shape)
 
+        img = PIL.Image.fromarray(img, 'RGB').convert('L')
         for k in kp:
             D2pt = k
             left, top, right, bottom = D2pt[0] - 32, D2pt[1] - 32, D2pt[0] + 32, D2pt[1] + 32
