@@ -27,6 +27,7 @@ parser.add_argument('--suffix', type=str, default='sift-2000',
 class ExtractSIFT(object):
     def __init__(self, num_kp, contrastThreshold=1e-5):
         self.model = torch.jit.load('h8E512lib+colo+notrebs9000ep40PCA128lib.jitpt')
+        print('moel loaded')
         self.sift = cv2.xfeatures2d.SIFT_create(nfeatures=num_kp, contrastThreshold=contrastThreshold)
 
     def run(self, img_path):
