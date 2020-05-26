@@ -5,6 +5,7 @@ import glob
 from tqdm import tqdm
 import cv2
 import h5py
+import torch
 
 
 def str2bool(v):
