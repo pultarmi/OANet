@@ -21,7 +21,6 @@ parser.add_argument('--suffix', type=str, default='sift-2000',
   help='suffix of filename, default:sift-2000')
 
 
-
 class ExtractSIFT(object):
   def __init__(self, num_kp, contrastThreshold=1e-5):
     self.sift = cv2.xfeatures2d.SIFT_create(nfeatures=num_kp, contrastThreshold=contrastThreshold)
@@ -50,8 +49,3 @@ if __name__ == "__main__":
     kp, desc = detector.run(img_path)
     save_path = img_path+'.'+opt.suffix+'.hdf5'
     write_feature(kp, desc, save_path)
-    
-
-
-
-
