@@ -53,6 +53,8 @@ class ExtractSIFT(object):
             patch = torch.tensor(np.asarray(patch))
             patch = default_resize_transform(patch)
             patch = patch.cuda()
+            print(patch.shape)
+            exit()
             out = self.model(patch)
             # print(patch.size)
         return kp, desc
