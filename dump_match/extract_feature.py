@@ -33,7 +33,7 @@ default_resize_transform = transforms.Compose([
 
 class ExtractSIFT(object):
     def __init__(self, num_kp, contrastThreshold=1e-5):
-        self.model = torch.jit.load('h8E512lib+colo+notrebs9000ep40PCA128lib.jitpt')
+        self.model = torch.jit.load('h8E512lib+colo+notrebs9000ep40PCA128lib.jitpt').cuda()
         print('model loaded')
         self.sift = cv2.xfeatures2d.SIFT_create(nfeatures=num_kp, contrastThreshold=contrastThreshold)
 
