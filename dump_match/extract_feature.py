@@ -50,6 +50,7 @@ class ExtractSIFT(object):
             # if not (left > 0 and top > 0 and right < w - 1 and bottom < h - 1):  # no black rectangles
             #     continue
             patch = img.crop((left, top, right, bottom))
+            patch = torch.tensor(np.asarray(patch))
             patch = default_resize_transform(patch)
             patch = patch.cuda()
             out = self.model(patch)
