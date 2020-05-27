@@ -44,7 +44,7 @@ class ExtractSIFT(object):
         kp = np.array([[_kp.pt[0], _kp.pt[1], _kp.size, _kp.angle] for _kp in cv_kp])  # N*4
         # print(img.shape)
 
-        patches += []
+        patches = []
         img = Image.fromarray(img, 'RGB').convert('L')
         for k in kp:
             D2pt = k
@@ -59,6 +59,7 @@ class ExtractSIFT(object):
 
         bs = 1024
         one_descs = []
+        n_patches = len(patches)
         n_batches = int(n_patches / bs + 1)
         for batch_idx in range(n_batches):
             st = batch_idx * bs
