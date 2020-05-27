@@ -40,9 +40,8 @@ class ExtractSIFT(object):
     def run(self, img_path):
         img = cv2.imread(img_path)
         cv_kp, desc = self.sift.detectAndCompute(img, None)
-        # print(type(desc))
+        desc = None
         kp = np.array([[_kp.pt[0], _kp.pt[1], _kp.size, _kp.angle] for _kp in cv_kp])  # N*4
-        # print(img.shape)
 
         patches = []
         img = Image.fromarray(img, 'RGB').convert('L')
@@ -55,7 +54,6 @@ class ExtractSIFT(object):
             patch = torch.tensor(np.asarray(patch))
             patch = default_resize_transform(patch)
             patches += [patch]
-            # patch = patch.cuda().unsqueeze(0)
 
         patches = torch.stack(patches)
         bs = 1024
@@ -70,16 +68,11 @@ class ExtractSIFT(object):
                 end = (batch_idx + 1) * bs
             if st >= end:
                 continue
-            # data_a = patches[st:end].astype(np.float32)
-            # data_a = torch.from_numpy(data_a).cuda().detach()
             data_a = patches[st:end].cuda()
             with torch.no_grad():
                 out_a = self.model(data_a)
             one_descs.append(out_a.data.cpu().numpy())
         descs = np.concatenate(one_descs)
-        # print(descs.shape)
-        # print(type(descs))
-        # return kp, desc
         return kp, descs
 
 
