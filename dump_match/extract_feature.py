@@ -77,8 +77,8 @@ class ExtractSIFT(object):
                 out_a = self.model(data_a)
             one_descs.append(out_a.data.cpu().numpy())
         descs = np.concatenate(one_descs)
-        print(descs.shape)
-        print(type(descs))
+        # print(descs.shape)
+        # print(type(descs))
         # return kp, desc
         return kp, descs
 
