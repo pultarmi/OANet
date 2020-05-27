@@ -17,7 +17,6 @@ parser.add_argument('--pair_num', type=int, default=1000,
   help='pair num. 1000 for test seq')
 
 
-        
 if __name__ == "__main__":
     config = parser.parse_args()
     # dump yfcc test
