@@ -57,6 +57,7 @@ class ExtractSIFT(object):
             patches += [patch]
             # patch = patch.cuda().unsqueeze(0)
 
+        patches = torch.stack(patches)
         bs = 1024
         one_descs = []
         n_patches = len(patches)
@@ -69,8 +70,9 @@ class ExtractSIFT(object):
                 end = (batch_idx + 1) * bs
             if st >= end:
                 continue
-            data_a = patches[st:end].astype(np.float32)
-            data_a = torch.from_numpy(data_a).cuda().detach()
+            # data_a = patches[st:end].astype(np.float32)
+            # data_a = torch.from_numpy(data_a).cuda().detach()
+            data_a = patches[st:end]
             with torch.no_grad():
                 out_a = self.model(data_a)
             one_descs.append(out_a.data.cpu().numpy())
