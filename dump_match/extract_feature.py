@@ -40,7 +40,7 @@ class ExtractSIFT(object):
     def run(self, img_path):
         img = cv2.imread(img_path)
         cv_kp, desc = self.sift.detectAndCompute(img, None)
-        print(type(desc))
+        # print(type(desc))
         kp = np.array([[_kp.pt[0], _kp.pt[1], _kp.size, _kp.angle] for _kp in cv_kp])  # N*4
         # print(img.shape)
 
@@ -77,8 +77,8 @@ class ExtractSIFT(object):
                 out_a = self.model(data_a)
             one_descs.append(out_a.data.cpu().numpy())
         descs = np.concatenate(one_descs)
-        # print(descs.shape)
-        # print(type(descs))
+        print(descs.shape)
+        print(type(descs))
         # return kp, desc
         return kp, descs
 
