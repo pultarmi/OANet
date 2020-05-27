@@ -72,7 +72,7 @@ class ExtractSIFT(object):
                 continue
             # data_a = patches[st:end].astype(np.float32)
             # data_a = torch.from_numpy(data_a).cuda().detach()
-            data_a = patches[st:end]
+            data_a = patches[st:end].cuda()
             with torch.no_grad():
                 out_a = self.model(data_a)
             one_descs.append(out_a.data.cpu().numpy())
