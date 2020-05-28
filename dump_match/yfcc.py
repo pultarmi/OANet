@@ -27,6 +27,7 @@ if __name__ == "__main__":
     # dump yfcc training seqs
     with open('yfcc_train.txt','r') as ofp:
         train_seqs = ofp.read().split('\n')
+    print(train_seqs)
     if len(train_seqs[-1]) == 0:
         del train_seqs[-1]
     print('train seq len '+str(len(train_seqs)))
